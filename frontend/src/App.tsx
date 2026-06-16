@@ -94,10 +94,10 @@ export default function App() {
             <ShieldCheck className="w-5 h-5 text-slate-400" />
             <div className="hidden sm:block">
               <span className="text-[10px] font-sans tracking-wider text-slate-500 uppercase font-bold block">
-                Access Status:
+                Session Role:
               </span>
-              <span className="text-xs font-sans text-emerald-500 font-bold block">
-                AUTHORIZED AUDITOR SESSION
+              <span className="text-xs font-sans text-slate-400 font-semibold block">
+                Compliance Auditor
               </span>
             </div>
           </div>

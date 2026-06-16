@@ -58,11 +58,11 @@ export default function AIExplainability() {
         <GlassCard glowColor="slate" className="h-full flex flex-col justify-start">
           <div>
             <h3 className="font-sans font-bold text-sm tracking-tight text-slate-100 flex items-center gap-1.5">
-              <BrainCircuit className="w-4 h-4 text-sky-400" />
-              Explainability Index
+              <BrainCircuit className="w-4 h-4 text-slate-400" />
+              Feature Explanations
             </h3>
             <p className="text-[11px] text-slate-500 mt-0.5">
-              Select verified customer profiles to inspect SHAP feature metrics.
+              Select verified customer profiles to view model feature contributions.
             </p>
           </div>
 
@@ -74,7 +74,7 @@ export default function AIExplainability() {
               value={searchQuery}
               onChange={(e) => handleSearch(e.target.value)}
               placeholder="Filter names or accounts..."
-              className="w-full bg-slate-900 border border-slate-800 rounded-lg pl-9 pr-4 py-2 text-xs font-sans text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-sky-500 transition"
+              className="w-full bg-slate-900 border border-slate-800 rounded-lg pl-9 pr-4 py-2 text-xs font-sans text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-slate-600 transition"
               id="explain-search"
             />
           </div>
@@ -97,10 +97,10 @@ export default function AIExplainability() {
                     <span className="font-mono text-[9px] text-slate-500 block">{acc.id}</span>
                     <span className="text-xs font-bold text-slate-200 block truncate mt-0.5">{acc.holderName}</span>
                   </div>
-                  <span className={`text-[9px] font-mono px-2 py-0.5 rounded border uppercase font-bold shrink-0 ml-2
+                  <span className={`text-[9px] font-sans px-2 py-0.5 rounded border uppercase font-semibold shrink-0 ml-2
                     ${acc.riskScore >= 65 
                       ? 'text-rose-400 border-rose-500/20 bg-rose-500/5' 
-                      : 'text-emerald-400 border-emerald-500/20 bg-emerald-500/5'
+                      : 'text-emerald-500 border-emerald-500/20 bg-emerald-500/5'
                     }`}
                   >
                     score: {acc.riskScore}
@@ -120,27 +120,27 @@ export default function AIExplainability() {
             <GlassCard glowColor={explainabilityData.status === 'Suspicious' ? 'rose' : 'emerald'} id="explain-header">
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-                  <span className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest block">
-                    AI Decision Log
+                  <span className="text-[10px] font-sans font-semibold text-slate-500 uppercase tracking-wider block">
+                    Model Evaluation Log
                   </span>
                   <h4 className="font-sans font-bold text-base text-slate-100 mt-0.5">
-                    Model Prediction: {explainabilityData.status}
+                    Model Verdict: {explainabilityData.status}
                   </h4>
                   <p className="text-[11px] text-slate-400 mt-1">
-                    Risk assessment score evaluated at <span className="font-mono text-sky-400">{selectedAcc.riskScore}/100</span> confidence quotient.
+                    Risk assessment score: <span className="font-sans text-slate-300 font-semibold">{selectedAcc.riskScore}/100</span>.
                   </p>
                 </div>
 
-                <div className="flex items-center gap-2 px-3 py-1.5 bg-slate-900/80 border border-slate-900 rounded-lg font-mono text-xs">
+                <div className="flex items-center gap-2 px-3 py-1.5 bg-slate-900/80 border border-slate-900 rounded-lg font-sans text-xs">
                   {explainabilityData.status === 'Suspicious' ? (
                     <>
-                      <XOctagon className="w-4 h-4 text-rose-500 animate-pulse" />
-                      <span className="text-rose-400 font-bold">POSSIBLE MULE SEED ({explainabilityData.modelConfidence}%)</span>
+                      <XOctagon className="w-4 h-4 text-rose-500" />
+                      <span className="text-rose-400 font-semibold">High Risk Profile ({explainabilityData.modelConfidence}%)</span>
                     </>
                   ) : (
                     <>
                       <CheckCircle className="w-4 h-4 text-emerald-500" />
-                      <span className="text-emerald-400 font-bold">LEGITIMATE USER ({explainabilityData.modelConfidence}%)</span>
+                      <span className="text-emerald-500 font-semibold">Low Risk Profile ({explainabilityData.modelConfidence}%)</span>
                     </>
                   )}
                 </div>
@@ -153,11 +153,11 @@ export default function AIExplainability() {
               {/* SHAP-style Importance horizontal chart (spans 2 columns) */}
               <GlassCard glowColor="slate" className="md:col-span-2" id="shap-chart-card">
                 <h4 className="font-sans font-bold text-xs text-slate-100 tracking-tight flex items-center justify-between mb-1">
-                  <span>SHAP-value Feature Contributions</span>
-                  <Percent className="w-3.5 h-3.5 text-sky-400" />
+                  <span>Feature Contributions</span>
+                  <Percent className="w-3.5 h-3.5 text-slate-400" />
                 </h4>
                 <p className="text-[10px] text-slate-500 mb-4">
-                  Visual weight analysis of individual attributes accelerating or reducing the global prediction target.
+                  Impact of account attributes on the model risk evaluation.
                 </p>
 
                 {/* Draw HTML bar charts */}
@@ -166,11 +166,11 @@ export default function AIExplainability() {
                     const isIncrease = factor.impactDirection === 'Increase';
                     return (
                       <div key={index} className="space-y-1">
-                        <div className="flex justify-between items-center text-[10px] font-mono">
-                          <span className="text-slate-300 font-bold block truncate max-w-[190px]">
+                        <div className="flex justify-between items-center text-[10px] font-sans">
+                          <span className="text-slate-300 font-semibold block truncate max-w-[190px]">
                             {factor.featureName}
                           </span>
-                          <span className={`flex items-center font-bold ${isIncrease ? 'text-rose-400' : 'text-emerald-400'}`}>
+                          <span className={`flex items-center font-semibold ${isIncrease ? 'text-rose-400' : 'text-emerald-500'}`}>
                             {isIncrease ? '+' : '-'}{factor.contribution}% 
                             {isIncrease ? <ArrowUpRight className="w-3 h-3 ml-0.5" /> : <ArrowDownRight className="w-3 h-3 ml-0.5" />}
                           </span>
@@ -189,23 +189,23 @@ export default function AIExplainability() {
               </GlassCard>
 
               {/* Narratives Card descriptor (spans 1 column) */}
-              <GlassCard glowColor="cyan" className="md:col-span-1 flex flex-col justify-between h-full" id="narratives-card">
+              <GlassCard glowColor="slate" className="md:col-span-1 flex flex-col justify-between h-full" id="narratives-card">
                 <div>
                   <h4 className="font-sans font-bold text-xs text-slate-100 tracking-tight flex items-center gap-1 mb-1">
-                    <Sparkles className="w-4 h-4 text-sky-400" />
-                    Model Verdict
+                    <Sparkles className="w-4 h-4 text-slate-400" />
+                    Model Narrative
                   </h4>
                   <p className="text-[10px] text-slate-500 mb-3">
-                    Synthesized linguistic reasoning.
+                    Verdict explanation:
                   </p>
 
-                  <p className="text-[11px] font-mono leading-relaxed text-slate-300 bg-slate-900/40 p-3 border border-slate-900/60 rounded overflow-y-auto max-h-[140px]">
+                  <p className="text-[11px] font-sans leading-relaxed text-slate-300 bg-slate-900/40 p-3 border border-slate-900/60 rounded overflow-y-auto max-h-[140px]">
                     {explainabilityData.riskExplanation}
                   </p>
                 </div>
 
-                <div className="text-[9px] font-mono text-slate-500 leading-tight mt-4 border-t border-slate-900 pt-2.5">
-                  🛡️ Explainability complies with SEC guidelines and EU AI risk management standards.
+                <div className="text-[9px] font-sans text-slate-500 leading-tight mt-4 border-t border-slate-900 pt-2.5">
+                  Model explanation matches compliance guidelines.
                 </div>
               </GlassCard>
             </div>
@@ -216,19 +216,19 @@ export default function AIExplainability() {
                 Telemetry Attribute Audit Logs
               </h4>
 
-              <div className="space-y-2 font-mono">
+              <div className="space-y-2 font-sans">
                 {explainabilityData.topFactors.map((factor, idx) => (
                   <div key={idx} className="p-3 bg-slate-900/20 border border-slate-900/60 rounded-lg flex items-start gap-3">
                     <div className={`p-1.5 rounded shrink-0 border mt-0.5
                       ${factor.impactDirection === 'Increase' 
                         ? 'bg-rose-950/10 border-rose-500/25 text-rose-400' 
-                        : 'bg-emerald-950/10 border-emerald-500/25 text-emerald-400'
+                        : 'bg-emerald-950/10 border-emerald-500/25 text-emerald-500'
                       }`}
                     >
                       {factor.impactDirection === 'Increase' ? <ArrowUpRight className="w-3.5 h-3.5" /> : <ArrowDownRight className="w-3.5 h-3.5" />}
                     </div>
                     <div>
-                      <span className="text-xs font-bold text-slate-200 block">{factor.featureName}</span>
+                      <span className="text-xs font-semibold text-slate-200 block">{factor.featureName}</span>
                       <p className="text-[11px] text-slate-400 leading-normal mt-0.5">{factor.description}</p>
                     </div>
                   </div>
@@ -238,7 +238,7 @@ export default function AIExplainability() {
           </>
         ) : (
           <div className="h-96 flex items-center justify-center border border-slate-900 bg-slate-950/40 rounded-xl">
-            <span className="text-xs font-mono text-slate-600">Please select a validated account profile to process feature explainability.</span>
+            <span className="text-xs font-sans text-slate-600">Please select an account profile to view explanation features.</span>
           </div>
         )}
       </div>

@@ -106,17 +106,17 @@ export default function AccountInvestigation() {
       <div className="lg:col-span-1 space-y-4">
         <GlassCard glowColor="slate" className="h-full flex flex-col justify-start">
           <h3 className="font-sans font-bold text-sm tracking-tight text-slate-100 flex items-center justify-between">
-            🔍 Account Explorer
+            Account Explorer
             <button 
               onClick={() => { setSearchQuery(''); fetchAccounts(); }} 
-              className="text-xs font-mono text-slate-500 hover:text-sky-400 transition"
+              className="text-xs font-sans text-slate-500 hover:text-slate-400 transition"
               title="Reset List"
             >
               <RotateCcw className="w-3.5 h-3.5" />
             </button>
           </h3>
           <p className="text-[11px] text-slate-500 mb-4">
-            Lookup ledger directories by customer metadata profiles.
+            Search and select account profiles for detailed audit.
           </p>
 
           {/* Search Bar Input */}
@@ -137,21 +137,21 @@ export default function AccountInvestigation() {
             <div className="flex gap-1 flex-wrap">
               <button 
                 onClick={() => handleSearch('ACC')}
-                className="px-2 py-1 bg-slate-900/60 hover:bg-slate-900 border border-slate-900 text-[10px] font-mono rounded text-slate-400 hover:text-sky-400"
+                className="px-2 py-1 bg-slate-900/60 hover:bg-slate-900 border border-slate-900 text-[10px] font-sans font-semibold rounded text-slate-400 hover:text-slate-300"
               >
-                # Accounts
+                Accounts
               </button>
               <button 
                 onClick={() => handleSearch('Suspicious')}
-                className="px-2 py-1 bg-amber-950/10 hover:bg-amber-950/20 border border-amber-950/30 text-[10px] font-mono rounded text-amber-500"
+                className="px-2 py-1 bg-amber-950/10 hover:bg-amber-950/20 border border-amber-950/30 text-[10px] font-sans font-semibold rounded text-amber-500"
               >
-                🚨 Suspicious
+                Suspicious
               </button>
               <button 
                 onClick={() => handleSearch('Critical')}
-                className="px-2 py-1 bg-rose-950/10 hover:bg-rose-950/20 border border-rose-950/30 text-[10px] font-mono rounded text-rose-400"
+                className="px-2 py-1 bg-rose-950/10 hover:bg-rose-950/20 border border-rose-950/30 text-[10px] font-sans font-semibold rounded text-rose-400"
               >
-                ⚠️ Critical risk
+                Critical risk
               </button>
             </div>
           </div>
@@ -159,12 +159,12 @@ export default function AccountInvestigation() {
           {/* Accounts list container */}
           <div className="space-y-2 overflow-y-auto max-h-[460px] pr-1">
             {isLoading ? (
-              <div className="py-8 text-center text-xs font-mono text-slate-600">
-                <span className="inline-block animate-spin mr-2">⏳</span> querying database index...
+              <div className="py-8 text-center text-xs font-sans text-slate-500">
+                Querying database index...
               </div>
             ) : accounts.length === 0 ? (
-              <div className="py-8 text-center text-xs font-mono text-slate-600">
-                No matching accounts in ML registries.
+              <div className="py-8 text-center text-xs font-sans text-slate-500">
+                No matching accounts found.
               </div>
             ) : (
               accounts.map((acc) => {
@@ -176,7 +176,7 @@ export default function AccountInvestigation() {
                     onClick={() => setSelectedAccount(acc)}
                     className={`w-full flex items-center justify-between p-3 rounded-lg border text-left transition-all cursor-pointer
                       ${isSelected 
-                        ? 'bg-slate-900/80 border-sky-500/50 shadow-md shadow-sky-500/5' 
+                        ? 'bg-slate-900/80 border-slate-700' 
                         : 'bg-slate-950/60 border-slate-900/80 hover:border-slate-800'
                       }`}
                   >
@@ -238,13 +238,13 @@ export default function AccountInvestigation() {
 
                 <div className="flex gap-2">
                   <div className="p-3 bg-slate-900/60 border border-slate-900 rounded-lg text-right">
-                    <span className="text-[9px] font-mono text-slate-500 block uppercase">Risk Score</span>
+                    <span className="text-[9px] font-sans text-slate-500 block uppercase">Risk Score</span>
                     <span className={`text-sm font-bold font-sans ${selectedAccount.riskCategory === 'Critical' ? 'text-rose-500' : 'text-orange-500'}`}>
                       {selectedAccount.riskScore}
                     </span>
                   </div>
                   <div className="p-3 bg-slate-900/60 border border-slate-900 rounded-lg text-right">
-                    <span className="text-[9px] font-mono text-slate-500 block uppercase">Category</span>
+                    <span className="text-[9px] font-sans text-slate-500 block uppercase">Category</span>
                     <span className={`text-sm font-bold font-sans uppercase ${getRiskColor(selectedAccount.riskCategory).split(' ')[0]}`}>
                       {selectedAccount.riskCategory}
                     </span>
@@ -255,22 +255,22 @@ export default function AccountInvestigation() {
               {/* Grid with contacts info */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-slate-900 mt-5 pt-4 text-xs">
                 <div>
-                  <span className="text-slate-500 block text-[10px] font-mono uppercase">Primary Contact</span>
+                  <span className="text-slate-500 block text-[10px] font-sans uppercase">Primary Contact</span>
                   <div className="flex items-center gap-1.5 text-slate-200 mt-1">
                     <Phone className="w-3.5 h-3.5 text-slate-500" />
                     <span>{selectedAccount.phoneNumber}</span>
                   </div>
                 </div>
                 <div>
-                  <span className="text-slate-500 block text-[10px] font-mono uppercase">Email Address</span>
+                  <span className="text-slate-500 block text-[10px] font-sans uppercase">Email Address</span>
                   <div className="flex items-center gap-1.5 text-slate-200 mt-1 truncate">
                     <FileText className="w-3.5 h-3.5 text-slate-500" />
                     <span className="truncate">{selectedAccount.email}</span>
                   </div>
                 </div>
                 <div>
-                  <span className="text-slate-500 block text-[10px] font-mono uppercase">Total Balance</span>
-                  <div className="flex items-center gap-1 mt-1 text-emerald-400 font-bold">
+                  <span className="text-slate-500 block text-[10px] font-sans uppercase">Total Balance</span>
+                  <div className="flex items-center gap-1 mt-1 text-emerald-500 font-bold">
                     <DollarSign className="w-4 h-4" />
                     <span>{selectedAccount.balance.toLocaleString()} {selectedAccount.currency}</span>
                   </div>
@@ -284,16 +284,16 @@ export default function AccountInvestigation() {
               <GlassCard glowColor="slate" className="md:h-[380px] flex flex-col justify-between">
                 <div className="flex-1 overflow-hidden flex flex-col">
                   <h4 className="font-sans font-bold text-xs text-slate-100 tracking-tight flex items-center gap-1.5 mb-1 bg-slate-950/10">
-                    <Activity className="w-4 h-4 text-sky-400" />
+                    <Activity className="w-4 h-4 text-slate-400" />
                     Transaction Logs ({transactions.length})
                   </h4>
                   <p className="text-[10px] text-slate-500 mb-3">
-                    Recent inward and outward cash sweeps.
+                    Recent transaction history.
                   </p>
 
                   <div className="flex-1 overflow-y-auto space-y-2 pr-1">
                     {transactions.length === 0 ? (
-                      <div className="py-20 text-center text-xs font-mono text-slate-600">
+                      <div className="py-20 text-center text-xs font-sans text-slate-500">
                         No transactions registered for this account.
                       </div>
                     ) : (
@@ -328,7 +328,7 @@ export default function AccountInvestigation() {
               <GlassCard glowColor="slate" className="md:h-[380px] flex flex-col justify-between" id="investigator-notes-card">
                 <div className="flex-1 overflow-hidden flex flex-col">
                   <h4 className="font-sans font-bold text-xs text-slate-100 tracking-tight flex items-center gap-1.5 mb-1">
-                    <UserCheck className="w-4 h-4 text-sky-400" />
+                    <UserCheck className="w-4 h-4 text-slate-400" />
                     Investigation Logs
                   </h4>
                   <p className="text-[10px] text-slate-500 mb-3">
@@ -343,7 +343,7 @@ export default function AccountInvestigation() {
                         value={newNote}
                         onChange={(e) => setNewNote(e.target.value)}
                         placeholder="Type investigator memo log here..."
-                        className="w-full bg-slate-900 border border-slate-800 rounded-lg pl-3 pr-10 py-2 text-xs font-mono text-slate-300 placeholder:text-slate-600 focus:outline-none focus:border-sky-500 transition"
+                        className="w-full bg-slate-900 border border-slate-800 rounded-lg pl-3 pr-10 py-2 text-xs font-sans text-slate-300 placeholder:text-slate-600 focus:outline-none focus:border-slate-750 transition"
                       />
                       <button 
                         type="submit" 
@@ -380,42 +380,42 @@ export default function AccountInvestigation() {
             </div>
 
             {/* Simulated Network Cluster display inside details */}
-            <GlassCard glowColor="indigo">
+            <GlassCard glowColor="slate">
               <h4 className="font-sans font-bold text-xs text-slate-100 tracking-tight flex items-center justify-between mb-1">
                 <span>Account Network Connection Topology</span>
-                <span className="text-[10px] font-mono text-indigo-400">ACTIVE DETECTIONS</span>
+                <span className="text-[10px] font-sans text-slate-500 uppercase tracking-wider font-semibold">Network Topology</span>
               </h4>
               <p className="text-[10px] text-slate-500 mb-4">
-                Estimated entity connections linked by shared transaction device signatures, location, or direct cash sweeps.
+                Entity connections linked by shared devices, IP locations, or direct transfers.
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div className="p-3 bg-slate-900/30 border border-slate-900 rounded-lg flex items-center gap-3">
-                  <div className="bg-rose-500/10 p-2 rounded border border-rose-500/20 text-rose-400 shrink-0">
+                  <div className="bg-slate-900 p-2 rounded border border-slate-800 text-slate-400 shrink-0">
                     <Laptop className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="text-[9px] font-mono text-slate-500 uppercase block">Host Signatures</span>
+                    <span className="text-[9px] font-sans text-slate-500 uppercase block">Host Signatures</span>
                     <span className="text-xs font-bold text-slate-300">3 Flagged Emulators</span>
                   </div>
                 </div>
 
                 <div className="p-3 bg-slate-900/30 border border-slate-900 rounded-lg flex items-center gap-3">
-                  <div className="bg-sky-500/10 p-2 rounded border border-sky-500/20 text-sky-400 shrink-0">
+                  <div className="bg-slate-900 p-2 rounded border border-slate-800 text-slate-400 shrink-0">
                     <MapPin className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="text-[9px] font-mono text-slate-500 uppercase block">Ip Coordinates</span>
-                    <span className="text-xs font-bold text-slate-300">Moscow, Lagos, Kiev</span>
+                    <span className="text-[9px] font-sans text-slate-500 uppercase block">Ip Locations</span>
+                    <span className="text-xs font-bold text-slate-300">Multiple Locations</span>
                   </div>
                 </div>
 
                 <div className="p-3 bg-slate-900/30 border border-slate-900 rounded-lg flex items-center gap-3">
-                  <div className="bg-amber-500/10 p-2 rounded border border-amber-500/20 text-amber-400 shrink-0">
+                  <div className="bg-slate-900 p-2 rounded border border-slate-800 text-slate-400 shrink-0">
                     <ArrowRight className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="text-[9px] font-mono text-slate-500 uppercase block">Connected Entities</span>
+                    <span className="text-[9px] font-sans text-slate-500 uppercase block">Connected Entities</span>
                     <span className="text-xs font-bold text-slate-300">{selectedAccount.connectionsCount} Linked Accounts</span>
                   </div>
                 </div>
@@ -424,7 +424,7 @@ export default function AccountInvestigation() {
           </>
         ) : (
           <div className="h-96 flex items-center justify-center border border-slate-900 bg-slate-950/40 rounded-xl">
-            <span className="text-xs font-mono text-slate-600">Please select an account from the index to begin deep audit.</span>
+            <span className="text-xs font-sans text-slate-650">Please select an account from the index to begin deep audit.</span>
           </div>
         )}
       </div>

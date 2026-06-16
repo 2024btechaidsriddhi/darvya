@@ -91,22 +91,22 @@ export default function RiskSimulator() {
           <form onSubmit={handleSimulate} className="space-y-4">
             <div>
               <h3 className="font-sans font-bold text-sm tracking-tight text-slate-100 flex items-center gap-1.5">
-                <Sliders className="w-4 h-4 text-sky-400" />
-                DarvyaScore Simulator
+                <Sliders className="w-4 h-4 text-slate-400" />
+                Risk Score Simulator
               </h3>
               <p className="text-[11px] text-slate-500 mt-1">
-                Calibrate telemetry values to test neural risk prediction pathways.
+                Adjust features to simulate account risk score prediction.
               </p>
             </div>
 
             {/* Inputs body */}
-            <div className="space-y-3.5 border-t border-slate-900 pt-4 font-mono text-[11px] text-slate-400">
+            <div className="space-y-3.5 border-t border-slate-900 pt-4 font-sans text-[11px] text-slate-400">
               
               {/* 1. Transaction Amount Slider */}
               <div className="space-y-1">
-                <div className="flex justify-between font-bold">
+                <div className="flex justify-between font-semibold">
                   <span>TRANSFER AMOUNT ($)</span>
-                  <span className="text-sky-400">${transactionAmount.toLocaleString()}</span>
+                  <span className="text-slate-300">${transactionAmount.toLocaleString()}</span>
                 </div>
                 <input 
                   type="range" 
@@ -115,16 +115,16 @@ export default function RiskSimulator() {
                   step="250"
                   value={transactionAmount}
                   onChange={(e) => setTransactionAmount(+e.target.value)}
-                  className="w-full accent-sky-500 cursor-pointer h-1.5 bg-slate-900 rounded"
+                  className="w-full accent-slate-400 cursor-pointer h-1.5 bg-slate-900 rounded"
                   id="input-amount"
                 />
               </div>
 
               {/* 2. Operations Velocity Slider */}
               <div className="space-y-1">
-                <div className="flex justify-between font-bold">
+                <div className="flex justify-between font-semibold">
                   <span>DAILY VELOCITY COUNT</span>
-                  <span className="text-sky-400">{velocity} transfers / hr</span>
+                  <span className="text-slate-300">{velocity} transfers / hr</span>
                 </div>
                 <input 
                   type="range" 
@@ -132,16 +132,16 @@ export default function RiskSimulator() {
                   max="50" 
                   value={velocity}
                   onChange={(e) => setVelocity(+e.target.value)}
-                  className="w-full accent-sky-500 cursor-pointer h-1.5 bg-slate-900 rounded"
+                  className="w-full accent-slate-400 cursor-pointer h-1.5 bg-slate-900 rounded"
                   id="input-velocity"
                 />
               </div>
 
               {/* 3. Beneficiary count */}
               <div className="space-y-1">
-                <div className="flex justify-between font-bold">
+                <div className="flex justify-between font-semibold">
                   <span>UNIQUE BENEFICIARIES</span>
-                  <span className="text-sky-400">{beneficiaryCount} accounts</span>
+                  <span className="text-slate-300">{beneficiaryCount} accounts</span>
                 </div>
                 <input 
                   type="range" 
@@ -149,25 +149,25 @@ export default function RiskSimulator() {
                   max="10" 
                   value={beneficiaryCount}
                   onChange={(e) => setBeneficiaryCount(+e.target.value)}
-                  className="w-full accent-sky-500 cursor-pointer h-1.5 bg-slate-900 rounded"
+                  className="w-full accent-slate-400 cursor-pointer h-1.5 bg-slate-900 rounded"
                   id="input-beneficiary"
                 />
               </div>
 
               {/* 4. Device risk Selector Buttons */}
               <div className="space-y-1">
-                <span className="block font-bold">DEVICE RISK RATING</span>
-                <div className="grid grid-cols-3 gap-2 mt-1 font-bold">
+                <span className="block font-semibold">DEVICE RISK RATING</span>
+                <div className="grid grid-cols-3 gap-2 mt-1 font-semibold">
                   {['Low', 'Medium', 'High'].map((rating) => (
                     <button
                       key={rating}
                       type="button"
                       onClick={() => setDeviceRisk(rating as any)}
-                      className={`py-1.5 border text-[10px] font-mono rounded cursor-pointer transition
+                      className={`py-1.5 border text-[10px] font-sans rounded cursor-pointer transition
                         ${deviceRisk === rating 
                           ? rating === 'High' 
                             ? 'bg-rose-950/20 border-rose-500/55 text-rose-400' 
-                            : 'bg-sky-950/20 border-sky-500/55 text-sky-400'
+                            : 'bg-slate-800 border-slate-700 text-slate-200'
                           : 'bg-slate-950/60 border-slate-900/60 text-slate-500 hover:border-slate-800'
                         }`}
                     >
@@ -182,17 +182,16 @@ export default function RiskSimulator() {
             <button
               type="submit"
               disabled={isSimulating}
-              className="w-full py-2.5 bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold transition text-xs font-mono tracking-wider rounded-lg flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50 mt-4"
+              className="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-100 font-semibold transition text-xs font-sans rounded-lg flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50 mt-4"
               id="run-simulation-btn"
             >
               {isSimulating ? (
                 <>
-                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-slate-950 animate-ping mr-1" />
-                  PROCESSING THROUGH ML GRAPH...
+                  Processing Simulation...
                 </>
               ) : (
                 <>
-                  <Play className="w-4.5 h-4.5 fill-slate-950" /> RUN ML RISK ASSESSMENT
+                  <Play className="w-4 h-4 fill-slate-100" /> Run Risk Assessment
                 </>
               )}
             </button>
@@ -211,26 +210,26 @@ export default function RiskSimulator() {
               <GlassCard glowColor={riskScore >= 85 ? 'rose' : riskScore >= 65 ? 'orange' : 'slate'} id="predicted-score-card">
                 <div className="flex flex-col h-full justify-between">
                   <div>
-                    <span className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest block">
+                    <span className="text-[10px] font-sans font-semibold text-slate-500 uppercase tracking-wider block">
                       Automated ML Prediction
                     </span>
                     <h4 className="font-sans font-bold text-sm text-slate-100 tracking-tight mt-0.5">
-                      Evaluated Risk Category: {riskCategory}
+                      Risk Category: {riskCategory}
                     </h4>
 
                     {/* Score display */}
                     <div className="flex items-baseline gap-1.5 mt-4">
                       <span className={`text-4xl font-black font-sans tracking-tight
-                        ${riskScore >= 85 ? 'text-rose-500' : riskScore >= 65 ? 'text-orange-500' : 'text-emerald-400'}`}>
+                        ${riskScore >= 85 ? 'text-rose-500' : riskScore >= 65 ? 'text-orange-500' : 'text-emerald-500'}`}>
                         {riskScore}
                       </span>
-                      <span className="text-slate-500 font-mono text-xs">/ 100 risk score</span>
+                      <span className="text-slate-500 font-sans text-xs">/ 100 risk score</span>
                     </div>
                   </div>
 
-                  {/* recommended action button badge */}
+                  {/* recommended action action button badge */}
                   <div className="mt-6 border-t border-slate-900 pt-4 flex flex-col items-start">
-                    <span className="text-slate-500 font-mono text-[9px] uppercase tracking-widest block mb-2">Recommended Action Gate</span>
+                    <span className="text-slate-500 font-sans text-[10px] uppercase tracking-wider block mb-2">Recommended Action</span>
                     <div className="flex items-center gap-2">
                       {getActionBadge(recommendedAction).icon}
                       <span className={getActionBadge(recommendedAction).style}>
@@ -244,20 +243,20 @@ export default function RiskSimulator() {
               {/* Technical model outputs and SHAP breakdown lists */}
               <GlassCard glowColor="slate" id="explain-simulated-factors">
                 <h4 className="font-sans font-bold text-xs text-slate-100 tracking-tight flex items-center justify-between mb-1">
-                  <span>Attribute Breakdown (SHAP-simulated)</span>
-                  <Gauge className="w-3.5 h-3.5 text-sky-400" />
+                  <span>Attribute Influence Breakdown</span>
+                  <Gauge className="w-3.5 h-3.5 text-slate-400" />
                 </h4>
                 <p className="text-[10px] text-slate-500 mb-4">
-                  Visual weight index of custom calibrated inputs.
+                  Influence weight of simulated input values.
                 </p>
 
-                <div className="space-y-2 font-mono text-[10px]">
+                <div className="space-y-2 font-sans text-[11px]">
                   {factors.map((factor, idx) => {
                     const isIncrease = factor.impactDirection === 'Increase';
                     return (
                       <div key={idx} className="flex justify-between items-center p-2 bg-slate-900/60 border border-slate-900 rounded">
                         <span className="text-slate-300 truncate max-w-[170px]">{factor.featureName}</span>
-                        <span className={`flex items-center font-bold font-mono ${isIncrease ? 'text-rose-400 animate-pulse' : 'text-emerald-300'}`}>
+                        <span className={`flex items-center font-semibold ${isIncrease ? 'text-rose-400' : 'text-emerald-500'}`}>
                           {isIncrease ? '+' : '-'}{factor.contribution}%
                           {isIncrease ? <ArrowUpRight className="w-3.5 h-3.5" /> : <ArrowDownRight className="w-3.5 h-3.5" />}
                         </span>
@@ -271,18 +270,18 @@ export default function RiskSimulator() {
             {/* Simulated verification disclaimer logs */}
             <GlassCard glowColor="slate">
               <h4 className="font-sans font-bold text-xs text-slate-100 mb-1">
-                Regulatory Decision Explanation Memo
+                Decision Explanation Memo
               </h4>
-              <p className="text-[11px] font-mono leading-relaxed text-slate-300">
-                Evaluation results are governed by decision tree threshold trees. Simulated output models are configured using actual historical weights mapped against the <span className="text-sky-400">v3.4.11-PROD</span> production release parameters.
+              <p className="text-[11px] font-sans leading-relaxed text-slate-300">
+                Evaluation results are governed by decision tree threshold trees. Simulated output models are configured using actual historical weights mapped against the <span className="text-slate-400">v3.4</span> production release parameters.
               </p>
             </GlassCard>
           </>
         ) : (
           <div className="h-full flex flex-col justify-center items-center border border-dashed border-slate-800 bg-slate-950/20 rounded-xl py-24 text-center">
             <Settings className="w-8 h-8 text-slate-600 mb-3 animate-spin duration-3000" />
-            <span className="text-xs font-mono text-slate-500">ML Scoring Pipeline ready for execution.</span>
-            <p className="text-[10px] text-slate-600 mt-1 font-mono">Calibrate values in the sidebar panel and click prompt to generate prediction.</p>
+            <span className="text-xs font-sans text-slate-500">Model pipeline ready for execution.</span>
+            <p className="text-[10px] text-slate-600 mt-1 font-sans">Configure values in the left panel and click run to generate a prediction.</p>
           </div>
         )}
       </div>

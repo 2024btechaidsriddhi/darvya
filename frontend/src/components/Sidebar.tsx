@@ -98,7 +98,7 @@ export default function Sidebar({ currentPage, setCurrentPage, liveAlertCount }:
                 </span>
               )}
               {item.badge > 0 && !item.isLive && (
-                <span className={`px-1.5 py-0.5 text-[9px] font-mono leading-none rounded-sm font-semibold
+                <span className={`px-1.5 py-0.5 text-[9px] font-sans leading-none rounded-sm font-semibold
                   ${item.id === 'alerts' 
                     ? 'bg-rose-950 text-rose-400 border border-rose-800' 
                     : 'bg-slate-800 text-slate-400'
@@ -108,7 +108,7 @@ export default function Sidebar({ currentPage, setCurrentPage, liveAlertCount }:
                 </span>
               )}
               {item.tag && (
-                <span className="px-1 py-0.2 text-[8px] font-mono bg-slate-800 text-slate-500 border border-slate-700 rounded-sm">
+                <span className="px-1 py-0.2 text-[8px] font-sans bg-slate-800 text-slate-500 border border-slate-700 rounded-sm font-semibold">
                   {item.tag}
                 </span>
               )}
@@ -121,11 +121,11 @@ export default function Sidebar({ currentPage, setCurrentPage, liveAlertCount }:
       <div className="p-4 border-t border-slate-800 bg-slate-950">
         <div className="flex items-center gap-2 mb-1">
           <span className="text-[10px] font-sans text-slate-500 tracking-wider font-bold">
-            SECURITY PROTOCOL
+            SYSTEM STATUS
           </span>
         </div>
-        <div className="text-[9px] font-mono text-slate-600">
-          Active: SHA256-GCM
+        <div className="text-[9px] font-sans text-slate-600">
+          Engine Version: 1.0.0
         </div>
       </div>
     </aside>
