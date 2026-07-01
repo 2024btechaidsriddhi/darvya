@@ -1,13 +1,14 @@
-# Mule Account Detection System - Backend
+# Dravya AI - Backend
 
-This is the production-ready FastAPI backend for the AI-powered Mule Account Detection System.
+This is the production-ready FastAPI backend for the Dravya AI Mule Account Detection System.
 
 ## Features
 
-- **Predict & Batch Predict**: AI-driven mule detection from features or CSV uploads.
-- **Explainability**: SHAP value generation for account risk scores.
-- **Websockets**: Simulated live transactions.
-- **Dashboard & Alerts**: Endpoints to drive the frontend visualizations.
+- **Zero Mock Data**: Strictly configured to crash on missing data or models. Operates entirely from `DataSet.csv`.
+- **Predict API**: AI-driven mule detection from features.
+- **Explainability**: Model feature importance mapping for account risk scores.
+- **Websockets**: Broadcasts live predictions as they happen natively.
+- **Dashboard & Alerts**: Endpoints strictly querying the dataset.
 
 ## Tech Stack
 
@@ -31,10 +32,11 @@ This is the production-ready FastAPI backend for the AI-powered Mule Account Det
 
 ## Running the Application
 
+Ensure `data/DataSet.csv` and `model/mule_detection_model.pkl` are present. 
 Use uvicorn to start the server:
 
 ```bash
-uvicorn app:app --reload
+uvicorn app:app --reload --port 8000
 ```
 
 The API docs will be available at [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs).
